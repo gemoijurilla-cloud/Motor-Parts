@@ -236,7 +236,7 @@
                     </select>
                 </div>
                 <div style="margin-top: 10px;">
-                    <label>Promo Voucher (DISCOUNT10 kung > ₱1,000):</label>
+                    <label>Promo Voucher (DISCOUNT 2% kung lagpas ₱1,000):</label>
                     <div style="display: flex; gap: 5px;">
                         <input type="text" id="cart-voucher" placeholder="Ilagay ang Voucher Code" style="margin-bottom:0;">
                         <button type="button" onclick="applyCartVoucher()" style="padding: 6px 12px; background: #007BFF; color: white; border: none; border-radius: 4px; cursor: pointer;">Apply</button>
@@ -253,7 +253,7 @@
                 </div>
                 <div class="summary">
                     <p>Subtotal: ₱<span id="cart-subtotal">0.00</span></p>
-                    <p>Discount (10%): -₱<span id="cart-discount">0.00</span></p>
+                    <p>Discount (2%): -₱<span id="cart-discount">0.00</span></p>
                     <p>Shipping Fee: ₱<span id="cart-shipping-fee">50.00</span></p>
                     <p class="total-price">Kabuuang Babayaran: ₱<span id="cart-final-total">0.00</span></p>
                 </div>
@@ -384,7 +384,7 @@
             }
         ];
 
-        let cartDiscountRate = 0.10;
+        let cartDiscountRate = 0.02;
 
         function renderCatalog() {
             const container = document.getElementById('store-container');
