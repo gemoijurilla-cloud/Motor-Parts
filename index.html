@@ -481,6 +481,7 @@
         }
 
         function openCartDrawer() {
+			cartDiscountRate = 0;
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             const container = document.getElementById('cart-items-container');
             let html = "";
