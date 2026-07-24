@@ -534,7 +534,7 @@
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             let subtotal = cart.reduce((sum, item) => sum + item.price, 0);
 
-            if (input === "DISCOUNT2" && subtotal > 1000) {
+            if (input === "DISCOUNT2" && subtotal >= 1000) {
                 cartDiscountRate = 0.02;
                 msg.style.color = "green"; msg.textContent = "2% Discount nailapat!";
             } else {
