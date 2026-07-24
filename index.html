@@ -535,8 +535,8 @@
             let subtotal = cart.reduce((sum, item) => sum + item.price, 0);
 
             if (input === "DISCOUNT10" && subtotal > 1000) {
-                cartDiscountRate = 0.10;
-                msg.style.color = "green"; msg.textContent = "10% Discount nailapat!";
+                cartDiscountRate = 0.02;
+                msg.style.color = "green"; msg.textContent = "2% Discount nailapat!";
             } else {
                 cartDiscountRate = 0;
                 msg.style.color = "red"; msg.textContent = "Invalid code o kulang sa ₱1,000 subtotal.";
