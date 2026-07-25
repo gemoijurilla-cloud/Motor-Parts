@@ -533,17 +533,20 @@
     const input = document.getElementById('cart-voucher').value.trim().toUpperCase();
     const msg = document.getElementById('cart-voucher-msg');
     let cart = JSON.parse(localStorage.getItem('userCart')) || [];
-    let subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+    let subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
 
     if (input === "DISCOUNT2" && subtotal >= 1000) {
-        cartDiscountRate = 0.02; // Inayos mula 0 ginawang 0.02 (2% discount)
+        cartDiscountRate = 0.02; //2% discount
+	if (msg) {
         msg.style.color = "green"; 
         msg.textContent = "2% Discount nailapat!";
     } else {
         cartDiscountRate = 0;
+	if (msg) {
         msg.style.color = "red"; 
         msg.textContent = "Invalid code o kulang sa ₱1,000 subtotal.";
     }
+}
     computeCartTotal();
 }
 
