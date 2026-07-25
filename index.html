@@ -6,44 +6,24 @@
     <title>Gymzyn Moto Parts - SPA</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
-        
-        /* SPA Views Management */
         .spa-view { display: none; }
         .spa-view.active { display: block; }
-
-        /* Navigation Bar */
         .navbar { display: flex; justify-content: space-between; align-items: center; background: #222; color: white; padding: 15px 40px; }
         .navbar h2 { margin: 0; font-size: 22px; cursor: pointer; }
         .nav-links a, .nav-links span { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; font-size: 16px; cursor: pointer; }
         .nav-links a:hover, .nav-links span:hover { color: #ffaa00; }
-        .nav-links button.login-btn { 
-            background: #ffaa00; 
-            padding: 8px 15px; 
-            border-radius: 4px; 
-            color: black; 
-            border: none; 
-            font-weight: bold; 
-            font-size: 16px; 
-            cursor: pointer; 
-        }
-
-        /* Main Content Box & Shared Styles */
+        .nav-links button.login-btn { background: #ffaa00; padding: 8px 15px; border-radius: 4px; color: black; border: none; font-weight: bold; font-size: 16px; cursor: pointer; }
         .content-box { width: 95%; max-width: 1300px; margin: 25px auto 15px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; box-sizing: border-box; }
         .container { max-width: 900px; margin: 25px auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        
-        /* Slider Container */
         .slider-container { width: 95%; max-width: 1300px; height: 550px; position: relative; margin: 0 auto 40px auto; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); background: #000; }
         .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 2s ease-in-out; top: 0; left: 0; }
         .slide.active { opacity: 1; }
         .prev, .next { cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%); padding: 15px; color: white; font-weight: bold; font-size: 22px; background: rgba(0,0,0,0.6); border-radius: 50%; border: none; z-index: 10; }
         .prev { left: 20px; }
         .next { right: 20px; }
-
-        /* Product Catalog Styles */
         .product-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 25px; text-align: center; }
         .product-card img { width: 180px; height: 180px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 10px; }
         .product-price { font-size: 22px; font-weight: bold; color: #d9534f; margin: 8px 0; }
-        .wholesale-badge { background: #fff3cd; color: #856404; padding: 6px; border-radius: 4px; font-size: 13px; margin-bottom: 12px; border: 1px solid #ffeeba; text-align: left; display: inline-block; width: 100%; box-sizing: border-box; }
         .action-buttons { display: flex; gap: 10px; margin-top: 15px; }
         .btn { flex: 1; padding: 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 14px; text-align: center; color: white; }
         .btn-chat { background-color: #008CBA; }
@@ -52,8 +32,6 @@
         .panel { margin-top: 15px; padding: 15px; border-radius: 5px; text-align: left; display: none; border: 1px solid #ddd; background: #fafafa; }
         label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 13px; }
         input, select, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 13px; }
-
-        /* Tables & Admin Panel */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         table, th, td { border: 1px solid #ddd; }
         th, td { padding: 12px; text-align: left; font-size: 14px; }
@@ -62,8 +40,6 @@
         .btn-waybill { background-color: #ffaa00; color: black; }
         .btn-clear { background-color: #d9534f; color: white; float: right; padding: 8px 15px; cursor: pointer; }
         .btn-test { background-color: #0275d8; color: white; float: right; padding: 8px 15px; cursor: pointer; margin-right: 5px; }
-
-        /* Cart Drawer Modal */
         .cart-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow-y: auto; }
         .cart-content { background-color: #fefefe; margin: 5% auto; padding: 25px; border: 1px solid #888; width: 90%; max-width: 550px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; }
         .close-cart { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
@@ -74,15 +50,8 @@
         .summary p { margin: 5px 0; font-size: 14px; }
         .total-price { font-size: 17px; font-weight: bold; color: #d9534f; }
         #checkout-section { display: none; }
-
-        /* Modal Login & Waybill */
-        .modal-overlay, .waybill-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6); z-index: 1100; justify-content: center; align-items: center;
-        }
-        .login-box, .waybill-box {
-            background: white; padding: 30px; border-radius: 8px; width: 90%; max-width: 350px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-align: center; position: relative;
-        }
+        .modal-overlay, .waybill-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1100; justify-content: center; align-items: center; }
+        .login-box, .waybill-box { background: white; padding: 30px; border-radius: 8px; width: 90%; max-width: 350px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-align: center; position: relative; }
         .waybill-box { width: 450px; border: 2px solid #000; font-family: 'Courier New', Courier, monospace; text-align: left; }
         .close-modal { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; font-weight: bold; color: #888; }
         .error-msg { color: red; font-size: 13px; margin-top: 10px; font-weight: bold; }
@@ -90,7 +59,6 @@
 </head>
 <body>
 
-    <!-- ================= 1. INDEX VIEW (DEFAULT MAIN PAGE) ================= -->
     <div id="view-index" class="spa-view active">
         <div class="navbar">
             <h2 onclick="switchView('index')">Gymzyn Moto Parts</h2>
@@ -101,12 +69,10 @@
                 <button class="login-btn" onclick="openLoginModal()">Admin Login</button>
             </div>
         </div>
-
         <div class="content-box">
             <h2>Maligayang Pagdating sa Gymzyn Moto Parts</h2>
             <p>Ito ang opisyal na pahina ng ating tindahan para sa mga de-kalidad na piyesa ng motor.</p>
         </div>
-
         <div class="slider-container">
             <img class="slide active" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=1300" alt="Motorcycle Parts 1">
             <img class="slide" src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=1300" alt="Motorcycle Parts 2">
@@ -116,8 +82,6 @@
         </div>
     </div>
 
-
-    <!-- ================= 2. PRODUCT CATALOG VIEW ================= -->
     <div id="view-product" class="spa-view">
         <div class="navbar">
             <h2 onclick="switchView('index')">Gymzyn Moto Parts</h2>
@@ -128,19 +92,12 @@
                 <button type="button" class="login-btn" onclick="openCartDrawer()">🛒 Cart (<span id="cart-count">0</span>)</button>
             </div>
         </div>
-
-        <div class="container" id="store-container" style="max-width: 800px;">
-            <h2 style="text-align: center; margin-bottom: 20px;">Lahat ng Produkto</h2>
-            <p style="text-align: center; color: #666;">Pumili at mamili sa aming mga produkto sa ibaba.</p>
-        </div>
-
+        <div class="container" id="store-container" style="max-width: 800px;"></div>
         <div style="text-align: center; margin-bottom: 30px;">
             <span onclick="switchView('index')" class="btn" style="background-color: #333; display: inline-block; width: auto; padding: 8px 15px; cursor: pointer;">&larr; Back to Home</span>
         </div>
     </div>
 
-
-    <!-- ================= 3. CONTACT VIEW ================= -->
     <div id="view-contact" class="spa-view">
         <div class="navbar">
             <h2 onclick="switchView('index')">Gymzyn Moto Parts</h2>
@@ -150,21 +107,16 @@
                 <span onclick="switchView('contact')">Contact</span>
             </div>
         </div>
-
         <div class="container">
             <h1>Makipag-ugnayan sa Amin</h1>
             <div style="line-height: 1.8; color: #555; font-size: 16px;">
                 <p><strong>Pangalan ng Tindahan:</strong> Gymzyn Moto Parts</p>
-                <p><strong>Telepono / Contact Number:</strong> 0912-345-6789</p>
-                <p><strong>Email:</strong> support@gymzynmotoparts.com</p>
+                <p><strong>Telepono:</strong> 0912-345-6789</p>
                 <p><strong>Address:</strong> Carigara, Eastern Visayas, Philippines</p>
-                <p>Para sa mga katanungan tungkol sa mga piyesa at produkto, maaari kaming tawagan o bisitahin sa aming shop.</p>
             </div>
         </div>
     </div>
 
-
-    <!-- ================= 4. ADMIN ORDERS VIEW ================= -->
     <div id="view-admin" class="spa-view">
         <div class="navbar">
             <h2>Admin Dashboard - Seller Panel</h2>
@@ -174,41 +126,21 @@
                 <span onclick="switchView('admin')" style="color: #ffaa00;">Mga Order</span>
             </div>
         </div>
-
         <div class="container">
-            <h3>
-                Listahan ng mga Order 
-                <button class="btn-action btn-clear" id="btnClearOrders">I-clear Lahat ng Order</button>
-                <button class="btn-action btn-test" onclick="addSampleOrder()">+ Subukan Magsaksak</button>
-            </h3>
-            <p style="color: #666; font-size: 13px;">Dito makikita ang mga natanggap na order ng Gymzyn Moto Parts.</p>
-
+            <h3>Listahan ng mga Order <button class="btn-action btn-clear" id="btnClearOrders">I-clear Lahat</button></h3>
             <table>
                 <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Pangalan</th>
-                        <th>Telepono / Adres</th>
-                        <th>Item & Presyo</th>
-                        <th>Aksyon</th>
-                    </tr>
+                    <tr><th>Order ID</th><th>Pangalan</th><th>Telepono / Adres</th><th>Item & Presyo</th><th>Aksyon</th></tr>
                 </thead>
-                <tbody id="orders-list">
-                    <!-- Dynamic Orders -->
-                </tbody>
+                <tbody id="orders-list"></tbody>
             </table>
         </div>
     </div>
 
-
-    <!-- ================= MODALS (CART, LOGIN, WAYBILL) ================= -->
-
-    <!-- Cart Modal Drawer -->
     <div id="cartDrawerModal" class="cart-modal">
         <div class="cart-content">
             <span class="close-cart" onclick="closeCartDrawer()">&times;</span>
-            <h3 id="cart-modal-title" style="margin-top: 0; color: #ff9800; border-bottom: 2px solid #ff9800; padding-bottom: 8px;">Ang iyong Shopping Cart</h3>
-            
+            <h3 style="margin-top: 0; color: #ff9800; border-bottom: 2px solid #ff9800; padding-bottom: 8px;">Ang iyong Shopping Cart</h3>
             <div id="cart-view-section">
                 <div id="cart-items-container" style="max-height: 250px; overflow-y: auto; margin-bottom: 15px;"></div>
                 <div style="font-weight: bold; text-align: right; font-size: 16px; margin-bottom: 15px;">
@@ -216,10 +148,9 @@
                 </div>
                 <button type="button" class="btn btn-buy" style="width: 100%; font-size: 15px;" onclick="showCheckoutForm()">Proceed to Checkout</button>
             </div>
-
             <form id="checkout-section" onsubmit="processCartCheckout(event)">
                 <div style="border-top: 1px dashed #ccc; padding-top: 12px; margin-top: 10px;">
-                    <h4 style="margin: 0 0 8px 0; color: #333;">Delivery / Shipping Details</h4>
+                    <h4 style="margin: 0 0 8px 0; color: #333;">Delivery Details</h4>
                     <label>Buong Pangalan:</label>
                     <input type="text" id="cart-name" placeholder="Juan Dela Cruz" required>
                     <label>Kumpletong Address:</label>
@@ -228,7 +159,7 @@
                     <input type="tel" id="cart-phone" placeholder="09123456789" required>
                 </div>
                 <div style="margin-top: 10px;">
-                    <label>Courier at Shipping Fee:</label>
+                    <label>Courier:</label>
                     <select id="cart-courier" onchange="computeCartTotal()">
                         <option value="50">J&T Express (Standard - ₱50)</option>
                         <option value="60">Flash Express (Express - ₱60)</option>
@@ -236,20 +167,7 @@
                     </select>
                 </div>
                 <div style="margin-top: 10px;">
-                    <label>Promo Voucher (DISCOUNT 2% kung lagpas ₱1,000):</label>
-                    <div style="display: flex; gap: 5px;">
-                        <input type="text" id="cart-voucher" placeholder="Ilagay ang Voucher Code" style="margin-bottom:0;">
-                        <button type="button" onclick="applyCartVoucher()" style="padding: 6px 12px; background: #007BFF; color: white; border: none; border-radius: 4px; cursor: pointer;">Apply</button>
-                    </div>
-                    <small id="cart-voucher-msg" style="display: block; margin-top: 4px;"></small>
-                </div>
-                <div style="margin-top: 10px;">
-                    <label>Payment Method:</label>
-                    <select id="cart-payment">
-                        <option value="cod">Cash on Delivery (COD)</option>
-                        <option value="gcash">GCash</option>
-                        <option value="maya">Maya</option>
-                    </select>
+                    <small id="cart-voucher-msg" style="display: block; margin-top: 4px; font-weight: bold;"></small>
                 </div>
                 <div class="summary">
                     <p>Subtotal: ₱<span id="cart-subtotal">0.00</span></p>
@@ -265,40 +183,33 @@
         </div>
     </div>
 
-    <!-- Login Modal -->
     <div id="loginModal" class="modal-overlay">
         <div class="login-box">
             <span class="close-modal" onclick="closeLoginModal()">&times;</span>
             <h2>Admin Security Login</h2>
-            <label for="admin-user">Username:</label>
+            <label>Username:</label>
             <input type="text" id="admin-user" placeholder="Enter Username">
-            <label for="admin-pass">Password:</label>
+            <label>Password:</label>
             <input type="password" id="admin-pass" placeholder="Enter Password">
             <button class="btn btn-buy" style="width:100%; margin-top:15px; background:#ffaa00; color:black;" onclick="checkAdminCredentials()">Login</button>
             <div id="errorMsg" class="error-msg"></div>
         </div>
     </div>
 
-    <!-- Waybill Modal -->
     <div id="waybillModal" class="waybill-modal">
-        <div class="waybill-box" id="waybill-printable">
+        <div class="waybill-box">
             <div style="text-align: center; border-bottom: 2px dashed #000; padding-bottom: 10px; margin-bottom: 10px;">
                 <h2>GYMZYN MOTO PARTS</h2>
                 <p>OFFICIAL SHIPPING WAYBILL</p>
             </div>
-			<div style="text-align: center; margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 10px;">
-			<!-- Dito lilitaw ang QR Code -->
-			<img id="wb-qrcode" src="" alt="Order QR Code" style="width: 100px; height: 100px;"><br>
-			<small style="color: #666;">Scan for verification</small>
-			</div>
-            <div style="margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-                <strong>SENDER:</strong><br>Gymzyn Moto Parts Store<br>Contact: 09123456789
+            <div style="text-align: center; margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 10px;">
+                <img id="wb-qrcode" src="" alt="QR" style="width: 100px; height: 100px;"><br>
             </div>
             <div style="margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
                 <strong>RECIPIENT:</strong><br><span id="wb-name">---</span><br>Phone: <span id="wb-phone">---</span><br>Address: <span id="wb-address">---</span>
             </div>
             <div style="margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-                <strong>ORDER DETAILS:</strong><br>ID: <span id="wb-id">---</span><br>Security Code: <strong style="color: #d9534f;" id="wb-seccode">---</strong><br>Item: <span id="wb-item">---</span><br>COD: <strong>₱<span id="wb-total">0.00</span></strong>
+                <strong>ORDER:</strong> ID: <span id="wb-id">---</span><br>Item: <span id="wb-item">---</span><br>Total: <strong>₱<span id="wb-total">0.00</span></strong>
             </div>
             <div style="text-align: center; margin-top: 15px;">
                 <button class="btn-action btn-waybill" onclick="window.print()">I-print</button>
@@ -307,33 +218,27 @@
         </div>
     </div>
 
-
-    <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
-        // SPA View Switcher
+        let cartDiscountRate = 0;
+        let slideIndex = 0;
+        let slideTimer = setInterval(autoSlide, 5000);
+
         function switchView(viewName) {
-            const views = document.querySelectorAll('.spa-view');
-            views.forEach(v => v.classList.remove('active'));
-            
+            document.querySelectorAll('.spa-view').forEach(v => v.classList.remove('active'));
             const targetView = document.getElementById('view-' + viewName);
             if (targetView) {
                 targetView.classList.add('active');
                 window.scrollTo(0, 0);
-                if (viewName === 'admin') {
-                    loadOrders();
-                }
+                if (viewName === 'admin') loadOrders();
             }
         }
 
-        // Image Slider
-        let slideIndex = 0;
-        let slideTimer = setInterval(autoSlide, 5000);
         function showSlide(n) {
             let slides = document.getElementsByClassName("slide");
             if (slides.length === 0) return;
-            if (n >= slides.length) { slideIndex = 0; }
-            if (n < 0) { slideIndex = slides.length - 1; }
-            for (let i = 0; i < slides.length; i++) { slides[i].classList.remove("active"); }
+            if (n >= slides.length) slideIndex = 0;
+            if (n < 0) slideIndex = slides.length - 1;
+            for (let i = 0; i < slides.length; i++) slides[i].classList.remove("active");
             slides[slideIndex].classList.add("active");
         }
         function changeSlide(n) {
@@ -344,90 +249,49 @@
         }
         function autoSlide() { slideIndex++; showSlide(slideIndex); }
 
-        // Products & Catalog Logic (Embedded Product Data)
         const productsList = [
-            {
-                "name": "Bearing", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Bearing.jpg",
-                "variations": [{"name": "6301", "price": 85}, {"name": "6302", "price": 100}]
-            },
-            {
-                "name": "Brake Shoe", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Brakeshoe.jpg",
-                "variations": [{"name": "TMX155", "price": 250}, {"name": "XRM", "price": 175}]
-            },
-            {
-                "name": "Interior", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/sapphire.jpg",
-                "variations": [{"name": "3.00-17", "price": 220}, {"name": "2.75-17", "price": 175}]
-            },
-            {
-                "name": "Sapphire Tire", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/803.bmp",
-                "variations": [{"name": "E803 3.00-17", "price": 875}, {"name": "E801 2.75-17", "price": 850}]
-            },
-            {
-                "name": "Scooter Belt", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Belt.jpg",
-                "variations": [{"name": "click 125", "price": 450}, {"name": "Mio i125", "price": 700}]
-            },
-            {
-                "name": "CDI", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/CDI.jpg",
-                "variations": [{"name": "TMX125 Aplha", "price": 450}, {"name": "XRM", "price": 375}]
-            },
-            {
-                "name": "Castrol", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Castrol.jpg",
-                "variations": [{"name": "Castro 1L", "price": 250}, {"name": "Castrol 800ml", "price": 225}]
-            },
-            {
-                "name": "Chain 428H", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Chain428H.jpg",
-                "variations": [{"name": "Chain 428H 110L", "price": 285}, {"name": "Chain 428H 120L", "price": 335}, {"name": "Chain 428H 130L", "price": 420}]
-            },
-            {
-                "name": "Flyball", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Flyball.jpg",
-                "variations": [{"name": "Click 12G", "price": 250}, {"name": "Mio i125 12G", "price": 175}]
-            }
+            { "name": "Bearing", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Bearing.jpg", "variations": [{"name": "6301", "price": 85}, {"name": "6302", "price": 100}] },
+            { "name": "Brake Shoe", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Brakeshoe.jpg", "variations": [{"name": "TMX155", "price": 250}, {"name": "XRM", "price": 175}] },
+            { "name": "Interior", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/sapphire.jpg", "variations": [{"name": "3.00-17", "price": 220}, {"name": "2.75-17", "price": 175}] },
+            { "name": "Sapphire Tire", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/803.bmp", "variations": [{"name": "E803 3.00-17", "price": 875}, {"name": "E801 2.75-17", "price": 850}] },
+            { "name": "Scooter Belt", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Belt.jpg", "variations": [{"name": "click 125", "price": 450}, {"name": "Mio i125", "price": 700}] },
+            { "name": "CDI", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/CDI.jpg", "variations": [{"name": "TMX125 Aplha", "price": 450}, {"name": "XRM", "price": 375}] },
+            { "name": "Castrol", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Castrol.jpg", "variations": [{"name": "Castro 1L", "price": 250}, {"name": "Castrol 800ml", "price": 225}] },
+            { "name": "Chain 428H", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Chain428H.jpg", "variations": [{"name": "Chain 428H 110L", "price": 285}, {"name": "Chain 428H 120L", "price": 335}, {"name": "Chain 428H 130L", "price": 420}] },
+            { "name": "Flyball", "desc": "Pwd Lahat na klasi motor", "image": "https://raw.githubusercontent.com/gemoijurilla-cloud/Gymzyn/refs/heads/main/Flyball.jpg", "variations": [{"name": "Click 12G", "price": 250}, {"name": "Mio i125 12G", "price": 175}] }
         ];
-
-        let cartDiscountRate = 0;
 
         function renderCatalog() {
             const container = document.getElementById('store-container');
+            if(!container) return;
             let htmlContent = `<h2 style="text-align: center; margin-bottom: 20px;">Lahat ng Produkto</h2>`;
-
             productsList.forEach((product, index) => {
-                const basePrice = product.variations && product.variations.length > 0 ? product.variations[0].price : 0;
+                const basePrice = product.variations[0].price;
                 let varOptionsHtml = "";
-                if(product.variations) {
-                    product.variations.forEach(v => {
-                        varOptionsHtml += `<option value="${v.price}">${v.name} - ₱${v.price.toFixed(2)}</option>`;
-                    });
-                }
-
+                product.variations.forEach(v => { varOptionsHtml += `<option value="${v.price}">${v.name} - ₱${v.price.toFixed(2)}</option>`; });
                 htmlContent += `
                     <div class="product-card">
-                        <img src="${product.image || ''}" alt="${product.name}" onerror="this.style.display='none'">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
                         <h3>${product.name}</h3>
                         <div class="product-price">₱<span id="price-view-${index}">${basePrice.toFixed(2)}</span></div>
                         <p style="color: #666; font-size: 14px; text-align: left;">${product.desc}</p>
-                        
                         <div class="action-buttons">
-                            <button type="button" class="btn btn-chat" onclick="alert('Maaari kang mag-mensahe tungkol sa ${product.name}.')">Chat</button>
+                            <button type="button" class="btn btn-chat" onclick="alert('Message sent.')">Chat</button>
                             <button type="button" class="btn btn-cart" onclick="togglePanel(${index}, 'cart')">Add to Cart</button>
                             <button type="button" class="btn btn-buy" onclick="togglePanel(${index}, 'buy')">Buy Now</button>
                         </div>
-
                         <div id="cart-panel-${index}" class="panel" style="border-color: #ff9800;">
-                            <h4 style="color: #ff9800;">Piliin ang Uri / Sukat para sa Cart</h4>
                             <label>Sukat / Uri:</label>
                             <select id="cart-var-${index}" onchange="updateCartItemPrice(${index})">${varOptionsHtml}</select>
                             <p style="font-weight: bold; margin: 8px 0;">Presyo: ₱<span id="cart-price-${index}">${basePrice.toFixed(2)}</span></p>
-                            <button type="button" class="btn btn-cart" style="width:100%; margin-top:5px;" onclick="confirmAddToCart(${index})">I-confirm sa Cart</button>
+                            <button type="button" class="btn btn-cart" style="width:100%;" onclick="confirmAddToCart(${index})">I-confirm sa Cart</button>
                         </div>
-
                         <div id="buy-panel-${index}" class="panel" style="border-color: #4CAF50;">
-                            <h4 style="color: #4CAF50;">Buy Now</h4>
-                            <label>Piliin ang Sukat / Uri:</label>
+                            <label>Sukat / Uri:</label>
                             <select id="buy-var-${index}" onchange="updateBuyItemPrice(${index})">${varOptionsHtml}</select>
                             <button type="button" class="btn btn-buy" style="width:100%; margin-top:10px;" onclick="directBuyNow(${index})">Ituloy sa Checkout</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
             container.innerHTML = htmlContent;
         }
@@ -448,7 +312,6 @@
             const select = document.getElementById(`cart-var-${index}`);
             document.getElementById(`cart-price-${index}`).textContent = parseFloat(select.value).toFixed(2);
         }
-
         function updateBuyItemPrice(index) {
             const select = document.getElementById(`buy-var-${index}`);
             document.getElementById(`price-view-${index}`).textContent = parseFloat(select.value).toFixed(2);
@@ -477,37 +340,33 @@
 
         function updateCartBadge() {
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
-            document.getElementById('cart-count').textContent = cart.length;
+            const countElem = document.getElementById('cart-count');
+            if (countElem) countElem.textContent = cart.length;
         }
 
         function openCartDrawer() {
-			cartDiscountRate = 0;
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             const container = document.getElementById('cart-items-container');
             let html = "";
             let subtotal = 0;
-
             if (cart.length === 0) {
                 html = "<p style='text-align:center; color:#666;'>Walang laman ang iyong cart.</p>";
             } else {
                 cart.forEach((item, idx) => {
                     subtotal += item.price;
-                    html += `
-                        <div class="cart-item-row">
-                            <div><strong>${item.product}</strong><br><small>${item.variation}</small><br><span style="color:#d9534f; font-weight:bold;">₱${item.price.toFixed(2)}</span></div>
-                            <button type="button" class="remove-item-btn" onclick="removeCartItem(${idx})">Tanggalin</button>
-                        </div>
-                    `;
+                    html += `<div class="cart-item-row"><div><strong>${item.product}</strong><br><small>${item.variation}</small><br><span style="color:#d9534f; font-weight:bold;">₱${item.price.toFixed(2)}</span></div><button type="button" class="remove-item-btn" onclick="removeCartItem(${idx})">Tanggalin</button></div>`;
                 });
             }
-            container.innerHTML = html;
-            document.getElementById('cart-drawer-subtotal').textContent = subtotal.toFixed(2);
+            if (container) container.innerHTML = html;
+            const drawerSubtotal = document.getElementById('cart-drawer-subtotal');
+            if (drawerSubtotal) drawerSubtotal.textContent = subtotal.toFixed(2);
             document.getElementById('cart-view-section').style.display = 'block';
             document.getElementById('checkout-section').style.display = 'none';
             document.getElementById('cartDrawerModal').style.display = "block";
         }
 
         function closeCartDrawer() { document.getElementById('cartDrawerModal').style.display = "none"; }
+        
         function removeCartItem(idx) {
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             cart.splice(idx, 1);
@@ -529,38 +388,40 @@
             document.getElementById('cart-view-section').style.display = 'block';
         }
 
-        function applyCartVoucher() {
-    const input = document.getElementById('cart-voucher').value.trim().toUpperCase();
-    const msg = document.getElementById('cart-voucher-msg');
-    let cart = JSON.parse(localStorage.getItem('userCart')) || [];
-    let subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
-
-    if (input === "DISCOUNT2" && subtotal >= 1000) {
-        cartDiscountRate = 0.02; //2% discount
-	if (msg) {
-        msg.style.color = "green"; 
-        msg.textContent = "2% Discount nailapat!";
-    } else {
-        cartDiscountRate = 0;
-	if (msg) {
-        msg.style.color = "red"; 
-        msg.textContent = "Invalid code o kulang sa ₱1,000 subtotal.";
-    }
-}
-    computeCartTotal();
-}
-
+        // AUTOMATIC DISCOUNT FUNCTION (₱1,000 Pataas)
         function computeCartTotal() {
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
-            let subtotal = cart.reduce((sum, item) => sum + item.price, 0);
-            const shippingFee = parseFloat(document.getElementById('cart-courier').value);
+            let subtotal = cart.reduce((sum, item) => sum + (item.price || 0), 0);
+            
+            const courierSelect = document.getElementById('cart-courier');
+            const shippingFee = courierSelect ? parseFloat(courierSelect.value) || 0 : 50;
+            
+            const msg = document.getElementById('cart-voucher-msg');
+            if (subtotal >= 1000) {
+                cartDiscountRate = 0.02; // 2% Discount
+                if (msg) {
+                    msg.style.color = "green";
+                    msg.textContent = "✓ Mayroon kang 2% Discount (Subtotal ay ₱1,000 o higit pa)!";
+                }
+            } else {
+                cartDiscountRate = 0;
+                if (msg) {
+                    if (subtotal > 0) {
+                        msg.style.color = "orange";
+                        msg.textContent = "⚠️ Dagdagan ang order nang umabot sa ₱1,000 para sa 2% discount.";
+                    } else {
+                        msg.textContent = "";
+                    }
+                }
+            }
+            
             const discountAmount = subtotal * cartDiscountRate;
             const finalTotal = (subtotal - discountAmount) + shippingFee;
 
-            document.getElementById('cart-subtotal').textContent = subtotal.toFixed(2);
-            document.getElementById('cart-discount').textContent = discountAmount.toFixed(2);
-            document.getElementById('cart-shipping-fee').textContent = shippingFee.toFixed(2);
-            document.getElementById('cart-final-total').textContent = finalTotal.toFixed(2);
+            if (document.getElementById('cart-subtotal')) document.getElementById('cart-subtotal').textContent = subtotal.toFixed(2);
+            if (document.getElementById('cart-discount')) document.getElementById('cart-discount').textContent = discountAmount.toFixed(2);
+            if (document.getElementById('cart-shipping-fee')) document.getElementById('cart-shipping-fee').textContent = shippingFee.toFixed(2);
+            if (document.getElementById('cart-final-total')) document.getElementById('cart-final-total').textContent = finalTotal.toFixed(2);
         }
 
         function processCartCheckout(e) {
@@ -575,7 +436,7 @@
 
             let newOrder = {
                 id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
-				securityCode: "SEC-" + Math.floor(1000 + Math.random() * 9000),
+                securityCode: "SEC-" + Math.floor(1000 + Math.random() * 9000),
                 name: name, phone: phone, address: address,
                 item: cart.map(i => `${i.product} (${i.variation})`).join(", "),
                 price: parseFloat(total)
@@ -593,67 +454,47 @@
             closeCartDrawer();
         }
 
-        // Admin & Orders Script
         function loadOrders() {
             let savedOrders = JSON.parse(localStorage.getItem('gymzyn_orders')) || [];
             const tbody = document.getElementById('orders-list');
+            if(!tbody) return;
             tbody.innerHTML = "";
-
             if (savedOrders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 20px; color:#888;">Walang natanggap na order sa kasalukuyan.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 20px; color:#888;">Walang natanggap na order.</td></tr>`;
                 return;
             }
-
             savedOrders.forEach((order, index) => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><strong>${order.id}</strong></td>
-                    <td>${order.name}</td>
-                    <td>${order.phone}<br><small>${order.address}</small></td>
-                    <td>${order.item} - <strong>₱${order.price}</strong></td>
-                    <td><button class="btn-action btn-waybill" onclick="generateWaybill(${index})">Waybill</button></td>
-                `;
+                tr.innerHTML = `<td><strong>${order.id}</strong></td><td>${order.name}</td><td>${order.phone}<br><small>${order.address}</small></td><td>${order.item} - <strong>₱${order.price}</strong></td><td><button class="btn-action btn-waybill" onclick="generateWaybill(${index})">Waybill</button></td>`;
                 tbody.appendChild(tr);
             });
         }
 
-        document.getElementById('btnClearOrders').onclick = function() {
-            if (confirm("Burahin ang lahat ng order?")) {
-                localStorage.removeItem('gymzyn_orders');
-                loadOrders();
-            }
-        };
-
-        function addSampleOrder() {
-            let currentOrders = JSON.parse(localStorage.getItem('gymzyn_orders')) || [];
-            currentOrders.push({
-                id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
-                name: "Juan Dela Cruz", phone: "09123456789", address: "Carigara, Leyte",
-                item: "Bearing (6301)", price: 85
-            });
-            localStorage.setItem('gymzyn_orders', JSON.stringify(currentOrders));
-            loadOrders();
+        const btnClear = document.getElementById('btnClearOrders');
+        if (btnClear) {
+            btnClear.onclick = function() {
+                if (confirm("Burahin ang lahat ng order?")) {
+                    localStorage.removeItem('gymzyn_orders');
+                    loadOrders();
+                }
+            };
         }
 
         function generateWaybill(index) {
             let savedOrders = JSON.parse(localStorage.getItem('gymzyn_orders')) || [];
             const order = savedOrders[index];
-			const qrData = encodeURIComponent(`Order: ${order.id} | Code: ${order.securityCode || 'SEC-9999'} | Name: ${order.name}`);
-            const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}`;
+            const qrData = encodeURIComponent(`Order: ${order.id} | Name: ${order.name}`);
             document.getElementById('wb-id').innerText = order.id;
-			document.getElementById('wb-seccode').innerText = order.securityCode || "SEC-9999";
             document.getElementById('wb-name').innerText = order.name;
             document.getElementById('wb-phone').innerText = order.phone;
             document.getElementById('wb-address').innerText = order.address;
             document.getElementById('wb-item').innerText = order.item;
             document.getElementById('wb-total').innerText = order.price;
-			document.getElementById('wb-qrcode').src = qrImageUrl;
+            document.getElementById('wb-qrcode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}`;
             document.getElementById('waybillModal').style.display = 'flex';
         }
-
         function closeWaybill() { document.getElementById('waybillModal').style.display = 'none'; }
 
-        // Login Modal Control
         function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; document.getElementById('errorMsg').innerText = ''; }
         function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
         function checkAdminCredentials() {
@@ -667,7 +508,6 @@
             }
         }
 
-        // Initialize Store Catalog on Load
         renderCatalog();
         updateCartBadge();
     </script>
